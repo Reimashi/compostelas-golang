@@ -1,5 +1,4 @@
-// compostelas project main.go
-package main
+package compostelas
 
 import (
 	"fmt"

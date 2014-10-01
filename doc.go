@@ -3,4 +3,4 @@
 /*
 compostelas document
 */
-package main
+package compostelas
