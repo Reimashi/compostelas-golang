@@ -1,4 +1,4 @@
-package compostelas
+package main
 
 import (
 	"crypto/rand"
