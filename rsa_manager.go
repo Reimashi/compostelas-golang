@@ -5,18 +5,18 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/pem"
-	"errors"
 	"os"
+	"path/filepath"
 )
 
 func GenerateRsaKeys(dir string, name string) error {
-	directory, err := os.Stat(dir)
+	// Obtenemos el directorio actual
+	rpath, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
 		return err
-	} else if !directory.IsDir() {
-		return errors.New("Directory path isn't correct.")
 	}
 
+	// Generamos y formateamos las llaves
 	privateKey, err := rsa.GenerateKey(rand.Reader, 2048)
 	if err != nil {
 		return err
@@ -40,7 +40,8 @@ func GenerateRsaKeys(dir string, name string) error {
 		Bytes:   publicKeyByteCode,
 	}
 
-	filepublic, err := os.Create(directory.Name() + "/" + name + ".public")
+	// Creamos y escribimos los ficheros
+	filepublic, err := os.Create(rpath + string(os.PathSeparator) + name + ".public")
 	if err != nil {
 		return err
 	}
@@ -54,7 +55,7 @@ func GenerateRsaKeys(dir string, name string) error {
 
 	filepublic.Sync()
 
-	fileprivate, err := os.Create(directory.Name() + "/" + name + ".private")
+	fileprivate, err := os.Create(rpath + string(os.PathSeparator) + name + ".private")
 	if err != nil {
 		return err
 	}
