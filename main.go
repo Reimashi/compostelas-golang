@@ -10,6 +10,8 @@ func main() {
 		switch os.Args[1] {
 		case "genkeys":
 			cmdGenkeys()
+		case "new":
+			// GetPilgrimFromTerminal("Oficina del peregrino")
 		case "help":
 			cmdHelp()
 		default:
@@ -46,5 +48,6 @@ func cmdHelp() {
 	fmt.Println()
 	fmt.Println("Comandos:")
 	fmt.Println("\tgenkeys <usuario>\tGenera un par de llaves publicas/privadas para el <usuario>.")
+	fmt.Println("\tnew\t\tGenera una compostela.")
 	fmt.Println("\thelp\t\tMuestra este dialogo de ayuda.")
 }
