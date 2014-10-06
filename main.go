@@ -11,7 +11,7 @@ func main() {
 		case "genkeys":
 			cmdGenkeys()
 		case "new":
-			// GetPilgrimFromTerminal("Oficina del peregrino")
+			cmdNew()
 		case "help":
 			cmdHelp()
 		default:
@@ -19,6 +19,20 @@ func main() {
 		}
 	} else {
 		cmdHelp()
+	}
+}
+
+func cmdNew() {
+	if len(os.Args) >= 3 {
+		pil, err := GetPilgrimFromTerminal(os.Args[2])
+		if err != nil {
+			fmt.Println("<Error interno> No se han podido generar los datos del peregrino.")
+			return
+		}
+
+	} else {
+		fmt.Println("Los argumentos no son suficientes:")
+		fmt.Println("compostelas new <nombre_oficina>")
 	}
 }
 
@@ -48,6 +62,6 @@ func cmdHelp() {
 	fmt.Println()
 	fmt.Println("Comandos:")
 	fmt.Println("\tgenkeys <usuario>\tGenera un par de llaves publicas/privadas para el <usuario>.")
-	fmt.Println("\tnew\t\tGenera una compostela.")
+	fmt.Println("\tnew <nombre_oficina>\tGenera una compostela.")
 	fmt.Println("\thelp\t\tMuestra este dialogo de ayuda.")
 }
