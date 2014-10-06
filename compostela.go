@@ -2,40 +2,41 @@ package main
 
 import (
 	"container/list"
-	"errors"
+	"encoding/json"
+	"io/ioutil"
 )
 
-type compostelaState struct (
+type compostelaState struct {
 	pilgrimEncrypted bool
-)
+}
 
-type compostelaData struct (
+type compostelaData struct {
 	Pilgrim []byte
-	Stamps list.List
-)
+	Stamps  list.List
+}
 
-type Compostela struct (
-	Data compostelaData
+type Compostela struct {
+	Data  compostelaData
 	State compostelaState
-)
+}
 
 /*
 Obtiene un objeto Compostela desde un archivo.
 */
-func GetCompostelaFromFile (path string) Compostela, error {
+func GetCompostelaFromFile(path string) (Compostela, error) {
 	comp := Compostela{}
-	
-	file, err := ioutil.ReadFile(string)
+
+	file, err := ioutil.ReadFile(path)
 	if err != nil {
 		return comp, err
 	}
-	
+
 	comp.State.pilgrimEncrypted = true
-	
-    err = json.Unmarshal(file, &comp.Data)
+
+	err = json.Unmarshal(file, &comp.Data)
 	if err != nil {
 		return comp, err
 	}
-	
+
 	return comp, nil
 }
