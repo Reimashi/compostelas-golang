@@ -1,17 +1,21 @@
 package main
 
 import (
+	"crypto/aes"
 	"fmt"
 	"os"
 )
 
 func main() {
+
 	if len(os.Args) >= 2 {
 		switch os.Args[1] {
 		case "genkeys":
 			cmdGenkeys()
 		case "new":
 			cmdNew()
+		case "aes":
+			cmdAes()
 		case "help":
 			cmdHelp()
 		default:
@@ -27,6 +31,7 @@ func cmdNew() {
 		pil, err := GetPilgrimFromTerminal(os.Args[2])
 		if err != nil {
 			fmt.Println("<Error interno> No se han podido generar los datos del peregrino.")
+			pil.GetName() //esto es porque sino no me deja hacer build
 			return
 		}
 
@@ -63,5 +68,38 @@ func cmdHelp() {
 	fmt.Println("Comandos:")
 	fmt.Println("\tgenkeys <usuario>\tGenera un par de llaves publicas/privadas para el <usuario>.")
 	fmt.Println("\tnew <nombre_oficina>\tGenera una compostela.")
+	fmt.Println("\taes <encriptar | desencriptar | desencriptarmal>\tMuestra una demostración de encriptado AES de tipo CFB")
 	fmt.Println("\thelp\t\tMuestra este dialogo de ayuda.")
+}
+
+func cmdAes() {
+
+	if len(os.Args) >= 3 {
+		data := []byte{0, 1}
+		encript := []byte{117, 125}
+		var key = "1234567890123456"
+		var keyerr = "6543210987654321"
+		var iv = []byte(key)[:aes.BlockSize] // No se como calcular el iv
+
+		switch os.Args[2] {
+		case "encriptar":
+			resultado := encriptar_aes(data, []byte(key), iv)
+			fmt.Printf("Encrypting %v -> %v\n", data, []byte(resultado))
+
+		case "desencriptar":
+			resultado := desencriptar_aes(encript, []byte(key), iv)
+			fmt.Printf("Decrypting %v -> %v\n", encript, []byte(resultado))
+
+		case "desencriptarmal":
+			resultado := desencriptar_aes(encript, []byte(keyerr), iv)
+			fmt.Printf("Decrypting %v -> %v\n", encript, []byte(resultado))
+
+		default:
+			fmt.Println("Opción <" + os.Args[2] + "> incorrecta. Use <encriptar | desencriptar | desencriptarmal>")
+		}
+
+	} else {
+		fmt.Println("Los argumentos no son suficientes:")
+		fmt.Println("compostelas aes <encriptar | desencriptar | desencriptarmal>")
+	}
 }
