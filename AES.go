@@ -5,7 +5,7 @@ import (
 	"crypto/cipher"
 )
 
-func encriptar_aes(data, key, iv []byte) []byte {
+func encriptar_aes(data []byte, key []byte, iv []byte) []byte {
 	encrypted := make([]byte, len(data))
 	aesBlockEncrypter, err := aes.NewCipher([]byte(key))
 	if err != nil {
@@ -16,7 +16,7 @@ func encriptar_aes(data, key, iv []byte) []byte {
 	return encrypted
 }
 
-func desencriptar_aes(data, key, iv []byte) []byte {
+func desencriptar_aes(data []byte, key []byte, iv []byte) []byte {
 	decrypted := make([]byte, len(data))
 	aesBlockDecrypter, err := aes.NewCipher([]byte(key))
 	if err != nil {
