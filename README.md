@@ -1,5 +1,7 @@
-Compostelas
+Compostelas-golang
 ===========
+
+**Se ha portado el proyecto a Java (https://github.com/Reimashi/compostelas). Descontinuado...**
 
 Trabajo de la asignatura "Seguridad en Sistemas Informáticos" de la Universidad de Vigo (http://goo.gl/ETjW1k). Trata las competencias de cifrado simétrico, asimétrico y firma digital.
 
